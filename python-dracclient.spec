@@ -14,9 +14,9 @@ Source0:        http://pypi.python.org/packages/source/p/%{name}/%{name}-%{versi
 BuildArch:      noarch
 BuildRequires:  python2-devel
 BuildRequires:  python-pbr
-
-BuildRequires: python-lxml
-BuildRequires: python-requests
+BuildRequires:  python-setuptools
+BuildRequires:  python-lxml
+BuildRequires:  python-requests
 
 Provides: python-dracclient = %{upstream_version}
 
