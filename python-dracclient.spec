@@ -2,40 +2,46 @@
 %{!?upstream_version: %global upstream_version %{version}}
 
 Name:           python-dracclient
-Summary:        Library for managing machines with Dell iDRAC cards
 Version:        0.0.4
-Release:        1%{?dist}
+Release:        1
+Summary:        Library for managing machines with Dell iDRAC cards.
+
 License:        ASL 2.0
-URL:            https://github.com/openstack/python-dracclient
-
-Source0:        https://pypi.python.org/packages/source/d/dracclient/dracclient-%{upstream_version}.tar.gz
-
-BuildArch:      noarch
-BuildRequires:  python-setuptools
-BuildRequires:  python2-devel
-BuildRequires:  python-pbr
-Requires: python-requests >= 2.5.2
-Requires: python-lxml >= 2.3
+URL:            http://github.com/openstack/%{name}
+Source0:        http://pypi.python.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
 
 #patches_base=+1
 
+BuildArch:      noarch
+BuildRequires:  python2-devel
+BuildRequires:  python-pbr
+
+BuildRequires: python-lxml
+BuildRequires: python-requests
+
+Provides: python-dracclient = %{upstream_version}
+
+%description
+Library for managing machines with Dell iDRAC cards.
+
 %prep
-%autosetup -v -p 1 -n dracclient-%{upstream_version}
+%setup -q -n %{name}-%{upstream_version}
+# Remove bundled egg-info
+rm -rf %{name}.egg-info
+# Let RPM handle the dependencies
+rm -f {test-,}requirements.txt
 
 %build
 %{__python2} setup.py build
 
 %install
-%{__python2} setup.py install -O1 --skip-build --root=%{buildroot}
-
-%description
-Library for managing machines with Dell iDRAC cards
+%{__python2} setup.py install --skip-build --root %{buildroot}
 
 %files
-%license LICENSE
-%doc README.rst
-%{python2_sitelib}/*dracclient*
+%doc README.rst LICENSE
+%{python2_sitelib}/dracclient*
+%{python2_sitelib}/python_dracclient*
 
 %changelog
-* Sat Nov 07 2015 Mike Burns <mburns@redhat.com> 0.0.3-1
+* Mon Nov 09 2015 Mike Burns <mburns@redhat.com> 0.0.4-1
 - Initial Spec
