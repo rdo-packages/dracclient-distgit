@@ -1,9 +1,8 @@
-%{?!_licensedir:%global license %%doc}
 %{!?upstream_version: %global upstream_version %{version}}
 
 Name:           python-dracclient
-Version:        0.0.4
-Release:        1
+Version:        XXX
+Release:        XXX
 Summary:        Library for managing machines with Dell iDRAC cards.
 
 License:        ASL 2.0
@@ -42,5 +41,3 @@ rm -f {test-,}requirements.txt
 %{python2_sitelib}/python_dracclient*
 
 %changelog
-* Mon Nov 09 2015 Mike Burns <mburns@redhat.com> 0.0.4-1
-- Initial Spec
