@@ -6,7 +6,6 @@ Summary:        Library for managing machines with Dell iDRAC cards
 Version:        0.0.4
 Release:        1%{?dist}
 License:        ASL 2.0
-Group:          System Environment/Base
 URL:            https://github.com/openstack/python-dracclient
 
 Source0:        https://pypi.python.org/packages/source/d/dracclient/dracclient-%{upstream_version}.tar.gz
