@@ -10,7 +10,6 @@ License:        ASL 2.0
 URL:            http://github.com/openstack/%{name}
 Source0:        http://pypi.python.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
 
-#patches_base=+1
 
 BuildArch:      noarch
 BuildRequires:  python2-devel
