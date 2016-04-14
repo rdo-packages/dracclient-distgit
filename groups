@@ -1,5 +1,5 @@
-# UUID          Group Name
-6ddfecad023c6f4fa3ac8c4d2583c502ea675a73 	Non-Interactive Users
-3907087737f18c92158a93316de0b778a3c285ca       	dracclient-distgit-core
-5365a302924e852edaad299e57669e68c5d287a6        	dracclient-distgit-ptl
-global:Registered-Users		Registered Users
+# UUID                                  	Group Name
+#
+3907087737f18c92158a93316de0b778a3c285ca	dracclient-distgit-core
+5365a302924e852edaad299e57669e68c5d287a6	openstack/dracclient-distgit-ptl
+global:Registered-Users                 	Registered Users
