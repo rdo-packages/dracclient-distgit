@@ -14,8 +14,11 @@ BuildArch:      noarch
 BuildRequires:  python2-devel
 BuildRequires:  python-pbr
 BuildRequires:  python-setuptools
+# All this is required to run unit tests in check phase
 BuildRequires:  python-lxml
+BuildRequires:  python-mock
 BuildRequires:  python-requests
+BuildRequires:  python-requests-mock
 
 Requires: python-lxml
 Requires: python-requests
@@ -37,6 +40,9 @@ rm -f {test-,}requirements.txt
 
 %install
 %{__python2} setup.py install --skip-build --root %{buildroot}
+
+%check
+%{__python2} -m unittest discover dracclient.tests
 
 %files
 %doc README.rst LICENSE
