@@ -35,6 +35,9 @@ rm -f {test-,}requirements.txt
 %install
 %{__python2} setup.py install --skip-build --root %{buildroot}
 
+%check
+%{__python2} -m unittest discover dracclient.tests
+
 %files
 %doc README.rst LICENSE
 %{python2_sitelib}/dracclient*
