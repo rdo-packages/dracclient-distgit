@@ -17,6 +17,10 @@ BuildRequires:  python-setuptools
 BuildRequires:  python-lxml
 BuildRequires:  python-requests
 
+Requires: python-lxml
+Requires: python-pbr
+Requires: python-requests
+
 Provides: python-dracclient = %{upstream_version}
 
 %description
