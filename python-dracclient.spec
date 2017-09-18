@@ -19,6 +19,7 @@ BuildRequires:  python-lxml
 BuildRequires:  python-mock
 BuildRequires:  python-requests
 BuildRequires:  python-requests-mock
+BuildRequires:  openstack-macros
 
 Requires: python-lxml
 Requires: python-requests
@@ -33,7 +34,7 @@ Library for managing machines with Dell iDRAC cards.
 # Remove bundled egg-info
 rm -rf %{name}.egg-info
 # Let RPM handle the dependencies
-rm -f {test-,}requirements.txt
+%py_req_cleanup
 
 %build
 %{__python2} setup.py build
