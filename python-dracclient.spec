@@ -22,6 +22,7 @@ Source0:        https://tarballs.openstack.org/%{name}/%{name}-%{version}.tar.gz
 
 
 BuildArch:      noarch
+BuildRequires:  openstack-macros
 
 %description
 Library for managing machines with Dell iDRAC cards.
@@ -63,7 +64,7 @@ Library for managing machines with Dell iDRAC cards.
 # Remove bundled egg-info
 rm -rf %{name}.egg-info
 # Let RPM handle the dependencies
-rm -f {test-,}requirements.txt
+%py_req_cleanup
 
 %build
 %{pyver_build}
