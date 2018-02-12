@@ -12,16 +12,16 @@ Source0:        https://tarballs.openstack.org/%{name}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python2-devel
-BuildRequires:  python-pbr
-BuildRequires:  python-setuptools
+BuildRequires:  python2-pbr
+BuildRequires:  python2-setuptools
 # All this is required to run unit tests in check phase
 BuildRequires:  python-lxml
-BuildRequires:  python-mock
-BuildRequires:  python-requests
+BuildRequires:  python2-mock
+BuildRequires:  python2-requests
 BuildRequires:  python-requests-mock
 
 Requires: python-lxml
-Requires: python-requests
+Requires: python2-requests
 
 Provides: python-dracclient = %{upstream_version}
 
