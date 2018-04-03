@@ -50,3 +50,4 @@ rm -f {test-,}requirements.txt
 %{python2_sitelib}/python_dracclient*
 
 %changelog
+# REMOVEME: error caused by commit http://git.openstack.org/cgit/openstack/python-dracclient/commit/?id=a8ef5bfb6a148204c4b774aee8b8695ed3f914e4
