@@ -1,3 +1,14 @@
+# Macros for py2/py3 compatibility
+%if 0%{?fedora} || 0%{?rhel} > 7
+%global pyver %{python3_pkgversion}
+%else
+%global pyver 2
+%endif
+%global pyver_bin python%{pyver}
+%global pyver_sitelib %python%{pyver}_sitelib
+%global pyver_install %py%{pyver}_install
+%global pyver_build %py%{pyver}_build
+# End of macros for py2/py3 compatibility
 %{!?upstream_version: %global upstream_version %{version}}
 
 Name:           python-dracclient
@@ -11,21 +22,40 @@ Source0:        https://tarballs.openstack.org/%{name}/%{name}-%{version}.tar.gz
 
 
 BuildArch:      noarch
-BuildRequires:  python2-devel
-BuildRequires:  python2-pbr
-BuildRequires:  python2-setuptools
-# All this is required to run unit tests in check phase
-BuildRequires:  python-lxml
-BuildRequires:  python2-mock
-BuildRequires:  python2-requests
-BuildRequires:  python-requests-mock
-
-Requires: python-lxml
-Requires: python2-requests
-
-Provides: python-dracclient = %{upstream_version}
 
 %description
+Library for managing machines with Dell iDRAC cards.
+
+%package -n     python%{pyver}-dracclient
+Summary:        Library for managing machines with Dell iDRAC cards.
+%{?python_provide:%python_provide python%{pyver}-dracclient}
+
+BuildRequires:  python%{pyver}-devel
+BuildRequires:  python%{pyver}-pbr
+BuildRequires:  python%{pyver}-setuptools
+# All this is required to run unit tests in check phase
+BuildRequires:  python%{pyver}-mock
+BuildRequires:  python%{pyver}-requests
+
+# Handle python2 exception
+%if %{pyver} == 2
+BuildRequires:  python-lxml
+BuildRequires:  python-requests-mock
+%else
+BuildRequires:  python%{pyver}-lxml
+BuildRequires:  python%{pyver}-requests-mock
+%endif
+
+Requires: python%{pyver}-requests
+
+# Handle python2 exception
+%if %{pyver} == 2
+Requires: python-lxml
+%else
+Requires: python%{pyver}-lxml
+%endif
+
+%description -n     python%{pyver}-dracclient
 Library for managing machines with Dell iDRAC cards.
 
 %prep
@@ -36,17 +66,17 @@ rm -rf %{name}.egg-info
 rm -f {test-,}requirements.txt
 
 %build
-%{__python2} setup.py build
+%{pyver_build}
 
 %install
-%{__python2} setup.py install --skip-build --root %{buildroot}
+%{pyver_install}
 
 %check
-%{__python2} -m unittest discover dracclient.tests
+%{pyver_bin} -m unittest discover dracclient.tests
 
-%files
+%files -n     python%{pyver}-dracclient
 %doc README.rst LICENSE
-%{python2_sitelib}/dracclient*
-%{python2_sitelib}/python_dracclient*
+%{pyver_sitelib}/dracclient*
+%{pyver_sitelib}/python_dracclient*
 
 %changelog
