@@ -1,7 +1,7 @@
 %{!?upstream_version: %global upstream_version %{version}}
 
 Name:           python-dracclient
-Version:        1.5.0
+Version:        1.6.0
 Release:        1%{?dist}
 Summary:        Library for managing machines with Dell iDRAC cards.
 
@@ -50,6 +50,9 @@ rm -f {test-,}requirements.txt
 %{python2_sitelib}/python_dracclient*
 
 %changelog
+* Thu Nov 29 2018 Jon Schlueter <jschluet@redhat.com> 1.6.0-1
+- Update to 1.6.0
+
 * Mon Sep 24 2018 RDO <dev@lists.rdoproject.org> 1.5.0-1
 - Update to 1.5.0
 
