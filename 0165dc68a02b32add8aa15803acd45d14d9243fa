@@ -1,0 +1,9 @@
+Code-Review+1: dtantsur <divius.inside@gmail.com>
+Code-Review+2: hguemar <hguemar@fedoraproject.org>
+Workflow+1: hguemar <hguemar@fedoraproject.org>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Fri, 07 Dec 2018 20:43:01 +0000
+Reviewed-on: https://review.rdoproject.org/r/17586
+Project: openstack/dracclient-distgit
+Branch: refs/heads/rocky-rdo
