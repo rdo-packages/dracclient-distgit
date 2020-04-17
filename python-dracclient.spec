@@ -1,14 +1,3 @@
-# Macros for py2/py3 compatibility
-%if 0%{?fedora} || 0%{?rhel} > 7
-%global pyver %{python3_pkgversion}
-%else
-%global pyver 2
-%endif
-%global pyver_bin python%{pyver}
-%global pyver_sitelib %python%{pyver}_sitelib
-%global pyver_install %py%{pyver}_install
-%global pyver_build %py%{pyver}_build
-# End of macros for py2/py3 compatibility
 %{!?upstream_version: %global upstream_version %{version}}
 
 Name:           python-dracclient
@@ -26,36 +15,25 @@ BuildArch:      noarch
 %description
 Library for managing machines with Dell iDRAC cards.
 
-%package -n     python%{pyver}-dracclient
+%package -n     python3-dracclient
 Summary:        Library for managing machines with Dell iDRAC cards.
-%{?python_provide:%python_provide python%{pyver}-dracclient}
+%{?python_provide:%python_provide python3-dracclient}
 
-BuildRequires:  python%{pyver}-devel
-BuildRequires:  python%{pyver}-pbr
-BuildRequires:  python%{pyver}-setuptools
+BuildRequires:  python3-devel
+BuildRequires:  python3-pbr
+BuildRequires:  python3-setuptools
 # All this is required to run unit tests in check phase
-BuildRequires:  python%{pyver}-mock
-BuildRequires:  python%{pyver}-requests
+BuildRequires:  python3-mock
+BuildRequires:  python3-requests
 
-# Handle python2 exception
-%if %{pyver} == 2
-BuildRequires:  python-lxml
-BuildRequires:  python-requests-mock
-%else
-BuildRequires:  python%{pyver}-lxml
-BuildRequires:  python%{pyver}-requests-mock
-%endif
+BuildRequires:  python3-lxml
+BuildRequires:  python3-requests-mock
 
-Requires: python%{pyver}-requests
+Requires: python3-requests
 
-# Handle python2 exception
-%if %{pyver} == 2
-Requires: python-lxml
-%else
-Requires: python%{pyver}-lxml
-%endif
+Requires: python3-lxml
 
-%description -n     python%{pyver}-dracclient
+%description -n     python3-dracclient
 Library for managing machines with Dell iDRAC cards.
 
 %prep
@@ -66,17 +44,17 @@ rm -rf %{name}.egg-info
 rm -f {test-,}requirements.txt
 
 %build
-%{pyver_build}
+%{py3_build}
 
 %install
-%{pyver_install}
+%{py3_install}
 
 %check
-%{pyver_bin} -m unittest discover dracclient.tests
+%{__python3} -m unittest discover dracclient.tests
 
-%files -n     python%{pyver}-dracclient
+%files -n     python3-dracclient
 %doc README.rst LICENSE
-%{pyver_sitelib}/dracclient*
-%{pyver_sitelib}/python_dracclient*
+%{python3_sitelib}/dracclient*
+%{python3_sitelib}/python_dracclient*
 
 %changelog
