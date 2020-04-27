@@ -1,8 +1,8 @@
 %{!?upstream_version: %global upstream_version %{version}}
 
 Name:           python-dracclient
-Version:        XXX
-Release:        XXX
+Version:        3.1.1
+Release:        1%{?dist}
 Summary:        Library for managing machines with Dell iDRAC cards.
 
 License:        ASL 2.0
@@ -58,3 +58,6 @@ rm -f {test-,}requirements.txt
 %{python3_sitelib}/python_dracclient*
 
 %changelog
+* Mon Apr 27 2020 RDO <dev@lists.rdoproject.org> 3.1.1-1
+- Update to 3.1.1
+
