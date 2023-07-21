@@ -1,13 +1,15 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
 %global sources_gpg_sign 0x2426b928085a020d8a90d0d879ab7008d0896c8a
 %{!?upstream_version: %global upstream_version %{version}}
+# we are excluding some BRs from automatic generator
+%global excluded_brs doc8 bandit pre-commit hacking flake8-import-order sphinx openstackdocstheme
 
 Name:           python-dracclient
 Version:        XXX
 Release:        XXX
 Summary:        Library for managing machines with Dell iDRAC cards.
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://github.com/openstack/%{name}
 Source0:        https://tarballs.openstack.org/%{name}/%{name}-%{version}.tar.gz
 # Required for tarball sources verification
@@ -30,22 +32,9 @@ Library for managing machines with Dell iDRAC cards.
 
 %package -n     python3-dracclient
 Summary:        Library for managing machines with Dell iDRAC cards.
-%{?python_provide:%python_provide python3-dracclient}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-pbr
-BuildRequires:  python3-setuptools
-# All this is required to run unit tests in check phase
-BuildRequires:  python3-mock
-BuildRequires:  python3-requests
-
-BuildRequires:  python3-lxml
-BuildRequires:  python3-requests-mock
-
-Requires: python3-requests
-
-Requires: python3-lxml
-
+BuildRequires:  pyproject-rpm-macros
 %description -n     python3-dracclient
 Library for managing machines with Dell iDRAC cards.
 
@@ -54,20 +43,33 @@ Library for managing machines with Dell iDRAC cards.
 %if 0%{?sources_gpg} == 1
 %{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
-%setup -q -n %{name}-%{upstream_version}
-# Remove bundled egg-info
-rm -rf %{name}.egg-info
-# Let RPM handle the dependencies
-rm -f {test-,}requirements.txt
+%autosetup -n %{name}-%{upstream_version} -S git
+
+sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
+sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini
+sed -i /^minversion.*/d tox.ini
+sed -i /^requires.*virtualenv.*/d tox.ini
+
+# Exclude some bad-known BRs
+for pkg in %{excluded_brs}; do
+  for reqfile in doc/requirements.txt test-requirements.txt; do
+    if [ -f $reqfile ]; then
+      sed -i /^${pkg}.*/d $reqfile
+    fi
+  done
+done
+
+%generate_buildrequires
+%pyproject_buildrequires -t -e %{default_toxenv}
 
 %build
-%{py3_build}
+%pyproject_wheel
 
 %install
-%{py3_install}
+%pyproject_install
 
 %check
-%{__python3} -m unittest discover dracclient.tests
+%tox -e %{default_toxenv}
 
 %files -n     python3-dracclient
 %doc README.rst LICENSE
