@@ -1,0 +1,9 @@
+Code-Review+2: Joel Capitao <jcapitao@redhat.com>
+Code-Review+2: Alfredo Moralejo <amoralej@redhat.com>
+Workflow+1: Alfredo Moralejo <amoralej@redhat.com>
+Verified+2: Zuul CI <zuul@review.rdoproject.org>
+Submitted-by: Zuul CI <zuul@review.rdoproject.org>
+Submitted-at: Thu, 27 Jul 2023 14:40:56 +0000
+Reviewed-on: https://review.rdoproject.org/r/c/openstack/dracclient-distgit/+/49385
+Project: openstack/dracclient-distgit
+Branch: refs/heads/rpm-master
